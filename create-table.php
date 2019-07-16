@@ -1,4 +1,11 @@
 <?php
+/**
+ * Brand
+ * Visitor
+ * Car
+ */
+
+
 /*
 Post.php
 posts 
@@ -25,45 +32,50 @@ comments
 require 'vendor/autoload.php';
 use Illuminate\Database\Capsule\Manager;
 
-Manager::schema()->dropIfExists('comments');
-Manager::schema()->dropIfExists('posts');
-Manager::schema()->dropIfExists('categories');
+Manager::schema()->dropIfExists('brands');
+Manager::schema()->dropIfExists('cars');
+Manager::schema()->dropIfExists('visitors');
 Manager::schema()->dropIfExists('users');
 
 Manager::schema()->create('users', function ($t) {
   $t->increments('id');
   $t->string('name');
-  $t->string('image')->nullable();
   $t->string('email')->unique();
-  $t->string('role')->nullable();
+  $t->string('role')->default('visitor');
   $t->string('password');
   $t->timestamps();
 });
 
-Manager::schema()->create('categories', function ($t) {
+Manager::schema()->create('brands', function ($t) {
   $t->increments('id');
   $t->string('name');
   $t->timestamps();
 });
 
-Manager::schema()->create('posts', function ($t) {
+Manager::schema()->create('cars', function ($t) {
   $t->increments('id');
-  $t->string('title');
-  $t->text('content');
-  $t->integer('user_id')->unsigned();
-  $t->integer('category_id')->unsigned();
-  $t->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-  $t->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+  $t->string('model');
+  $t->string('sale_price')->nullable();
+  $t->string('rent_price')->nullable();
+  $t->string('code')->nullable();
+  $t->string('fuel_type')->nullable();
+  $t->string('capacity')->nullable();
+  $t->text('content')->nullable();
+  $t->integer('brand_id')->unsigned();
+  // $t->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
   $t->timestamps();
 });
 
-Manager::schema()->create('comments', function ($t) {
+
+Manager::schema()->create('visitors', function ($t) {
   $t->increments('id');
   $t->string('name');
-  $t->string('email');
-  $t->text('text');
-  $t->integer('post_id')->unsigned();
-  $t->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+  $t->string('sale_or_rent')->default('sale');
+  $t->string('yearly_income');
+  $t->string('mobile')->nullable();
+  $t->string('email')->nullable();
+  $t->integer('car_id')->unsigned();
+  // $t->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
   $t->timestamps();
 });
 

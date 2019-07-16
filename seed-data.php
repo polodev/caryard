@@ -8,24 +8,8 @@ use Faker\Factory;
 
 $users = [
   [
-  "name" => 'Nur',
-  "email" => 'nur@gmail.com'
-  ],
-  [
-  "name" => 'Mahibur',
-  "email" => 'mahibur@gmail.com'
-  ],
-  [
-  "name" => 'farhad',
-  "email" => 'farhad@gmail.com'
-  ],
-  [
-  "name" => 'Majedul',
-  "email" => 'majedul@gmail.com'
-  ],
-  [
-  "name" => 'Tahmina',
-  "email" => 'tahmina@gmail.com'
+  "name" => 'admin',
+  "email" => 'admin@gmail.com'
   ],
 ];
 
@@ -39,34 +23,130 @@ foreach ($users as $user) {
   ]);
 }
 
-$categories = ["Web", "Technology", "PHP", 'Html', 'Css', 'Laravel'];
+$brands = ['Bently', 'Bugatti', 'Buick'];
+foreach ($brands as $brand) {
+  Brand::insert([
+    'name' => $brand,
+    "created_at" => Carbon::now()->format("Y-m-d H:i:s"),
+    "updated_at" => Carbon::now()->format("Y-m-d H:i:s")
+  ]);
+}
+$cars = [
+  [
+    'model' => 'Bently 1',
+    'sale_price' => '22000',
+    'rent_price' => '3000',
+    'code' => 'ben10',
+    'capacity' => '3',
+    'brand_id' => 1,
+  ],
+  [
+    'model' => 'Bently 2',
+    'sale_price' => '11000',
+    'rent_price' => '1500',
+    'code' => 'ben20',
+    'capacity' => '3',
+    'brand_id' => 1,
+  ],
+  [
+    'model' => 'Bugatti 1',
+    'sale_price' => '14000',
+    'rent_price' => '1400',
+    'code' => 'bugat10',
+    'capacity' => '3',
+    'brand_id' => 2,
+  ],
+  [
+    'model' => 'Bugatti 2',
+    'sale_price' => '41000',
+    'rent_price' => '4000',
+    'code' => 'bugat20',
+    'capacity' => '3',
+    'brand_id' => 2,
+  ],
+  [
+    'model' => 'Buick 1',
+    'sale_price' => '31000',
+    'rent_price' => '3000',
+    'code' => 'buick10',
+    'capacity' => '3',
+    'brand_id' => 3,
+  ],
+  [
+    'model' => 'Buick 2',
+    'sale_price' => '21000',
+    'rent_price' => '2000',
+    'code' => 'buick20',
+    'capacity' => '3',
+    'brand_id' => 3,
+  ],
 
-foreach ($categories as $category) {
-  Category::insert([
-    'name' => $category,
+];
+
+foreach ($cars as $car) {
+  Car::insert([
+    'model' =>  $car['model'],
+    'sale_price' =>  $car['sale_price'],
+    'rent_price' =>  $car['rent_price'],
+    'code' =>  $car['code'],
+    'capacity' =>  $car['capacity'],
+    'brand_id' => $car['brand_id'],
     "created_at" => Carbon::now()->format("Y-m-d H:i:s"),
     "updated_at" => Carbon::now()->format("Y-m-d H:i:s")
   ]);
 }
 
-$faker = Factory::create();
-foreach (range(1, 30) as $i) {
-  Post::insert([
-    'title' => $faker->sentence,
-    'content' => $faker->paragraph(rand(15, 30)),
-    'user_id' => rand(1, count($users)),
-    'category_id' => rand(1, count($categories)),
-    "created_at" => Carbon::now()->format("Y-m-d H:i:s"),
-    "updated_at" => Carbon::now()->format("Y-m-d H:i:s")
-  ]);
-}
+$visitors = [
+  [
+    'name' => 'Mr A',
+    'sale_or_rent' => 'sale',
+    'yearly_income' => '25000',
+    'mobile' => '0483080234',
+    'email' => 'a@gmail.com',
+    'car_id' => rand(1, 6),
+  ],
+  [
+    'name' => 'Mr B',
+    'sale_or_rent' => 'sale',
+    'yearly_income' => '25000',
+    'mobile' => '0483080234',
+    'email' => 'B@gmail.com',
+    'car_id' => rand(1, 6),
+  ],
+  [
+    'name' => 'Mr c',
+    'sale_or_rent' => 'rent',
+    'yearly_income' => '25000',
+    'mobile' => '0483080234',
+    'email' => 'c@gmail.com',
+    'car_id' => rand(1, 6),
+  ],
+  [
+    'name' => 'Mr D',
+    'sale_or_rent' => 'sale',
+    'yearly_income' => '25000',
+    'mobile' => '0483080234',
+    'email' => 'd@gmail.com',
+    'car_id' => rand(1, 6),
+  ],
+  [
+    'name' => 'Mr E',
+    'sale_or_rent' => 'rent',
+    'yearly_income' => '25000',
+    'mobile' => '0483080234',
+    'email' => 'e@gmail.com',
+    'car_id' => rand(1, 6),
+  ],
+];
 
-foreach (range(1, 200) as $i) {
-  Comment::insert([
-    'name' => $faker->name,
-    'email' => $faker->email,
-    'text' => $faker->paragraph(rand(1, 4)),
-    'post_id' => rand(1, 30),
+foreach ($visitors as $visitor) {
+  Visitor::insert([
+    'name' =>  $visitor['name'],
+    'sale_or_rent' =>  $visitor['sale_or_rent'],
+    'yearly_income' =>  rand(100000, 250000),
+    'mobile' =>  $visitor['mobile'],
+    'email' =>  $visitor['email'],
+    'car_id' => $visitor['car_id'],
     "created_at" => Carbon::now()->format("Y-m-d H:i:s"),
     "updated_at" => Carbon::now()->format("Y-m-d H:i:s")
   ]);

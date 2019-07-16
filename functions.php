@@ -16,4 +16,3 @@ function is_email_taken($email) {
 }
 
 
-
